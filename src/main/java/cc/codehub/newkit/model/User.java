@@ -17,7 +17,7 @@ public class User implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Integer uid;
 
-	private String account;
+	private String username;
 
 	private String email;
 
@@ -33,6 +33,8 @@ public class User implements Serializable {
 
 	private Integer type = 0;
 
+	private String idNo;
+
 	public User() {
 	}
 
@@ -44,12 +46,12 @@ public class User implements Serializable {
 		this.uid = uid;
 	}
 
-	public String getAccount() {
-		return this.account;
+	public String getUsername() {
+		return this.username;
 	}
 
-	public void setAccount(String account) {
-		this.account = account;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getEmail() {
@@ -108,4 +110,11 @@ public class User implements Serializable {
 		this.type = type;
 	}
 
+    public String getIdNo() {
+        return this.idNo;
+    }
+
+    public void setIdNo(String idNo) {
+        this.idNo = idNo;
+    }
 }

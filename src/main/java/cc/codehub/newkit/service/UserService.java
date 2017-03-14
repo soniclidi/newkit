@@ -18,7 +18,7 @@ public interface UserService {
 
     User getUserById(Integer id);
 
-    User getUserByAccount(String account);
+    User getUserByUsername(String username);
 
     User getUserByMobile(String mobile);
 
@@ -28,7 +28,7 @@ public interface UserService {
 
     long usersCount();
 
-    User authorize(String account, String password);
+    User authorize(String username, String password);
 
     User encryptPassword(User user, String password);
 }

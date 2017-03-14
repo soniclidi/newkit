@@ -1,8 +1,6 @@
 package cc.codehub.newkit.service;
 
-import cc.codehub.newkit.model.Access;
-import cc.codehub.newkit.model.AccessRoleMap;
-import cc.codehub.newkit.model.Role;
+import cc.codehub.newkit.model.*;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
@@ -15,7 +13,7 @@ public interface AccessAndRoleService {
 
     List<Access> getAccessList();
 
-    Iterable<Access> getAllAccesses(Pageable pageable);
+    List<Access> getAllAccesses(Pageable pageable);
 
     Access createAccess(Access access);
 
@@ -32,17 +30,17 @@ public interface AccessAndRoleService {
     List<String> findAccessUrlByRoleId(Integer roleId);
 
 
-    public Role addRole(Role role);
+    Role addRole(Role role);
 
-    public void delRole(Integer id);
+    void delRole(Integer id);
 
-    public Role updateRole(Role role);
+    Role updateRole(Role role);
 
-    public Iterable<Role> getAllRoles(Pageable pageable);
+    List<Role> getAllRoles(Pageable pageable);
 
-    public Role findByRoleId(Integer id);
+    Role getRoleByRoleId(Integer id);
 
-    public List<String> findRoleNamesByAccessId(Integer accessId);
+    List<String> getRoleNamesByAccessId(Integer accessId);
 
     boolean existsRoleName(String name);
 
@@ -56,32 +54,16 @@ public interface AccessAndRoleService {
     void deleteAccessRoleMapByMapId(Integer mapId);
 
 
-    public Set<String> findRoleNamesByUser(User user);
 
-    /**
-     * 获取员工角色
-     * @param employeeId
-     * @return
-     */
-    Iterable<RoleEmployeeMap> getAllEmployeeRole(int employeeId);
+    Set<String> findRoleNamesByUser(User user);
 
-    /**
-     * 添加员工角色
-     * @param roleEmployeeMap
-     * @return
-     */
-    RoleEmployeeMap addEmployeeRoleMap(RoleEmployeeMap roleEmployeeMap);
+    List<RoleUserMap> getAllUserRole(int userId);
 
-    /**
-     * 删除员工角色
-     * @param employeeId
-     */
-    void deleteEmployeeRoleByEmployeeId(int employeeId);
+    RoleUserMap addUserRoleMap(RoleUserMap roleUserMap);
 
-    /**
-     * 删除单条员工角色
-     * @param employeeId
-     * @param roleId
-     */
-    void deleteEmployeeRoleByEmployeeIdAndRoleId(int employeeId, int roleId);
+    void deleteUserRoleByUserId(int userId);
+
+    void deleteUserRoleByUserIdAndRoleId(int userId, int roleId);
+
+    List<String> findAllRoleNameByUsername(String account);
 }
