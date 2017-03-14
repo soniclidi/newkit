@@ -23,12 +23,12 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User userInfo = userService.getUserByUsername(username);
+        User userInfo = userService.getUserByUsernameOrMobileOrEmail(username, username, username);
         if (userInfo == null) {
             throw new UsernameNotFoundException("Username not found");
         }
 
-        List<String> listRoleName = accessAndRoleService.findAllRoleNameByUsername(username);
+        List<String> listRoleName = accessAndRoleService.getRoleNamesByUser(userInfo);
         CustomUserDetails CustomUserDetails = new CustomUserDetails(userInfo, listRoleName);
 
         return CustomUserDetails;

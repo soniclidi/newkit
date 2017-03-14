@@ -33,6 +33,7 @@ public class User implements Serializable {
 
 	private Integer type = 0;
 
+	@Column(name="id_no")
 	private String idNo;
 
 	public User() {

@@ -27,7 +27,7 @@ public class CustomFilterInvocationSecurityMetadataSource implements FilterInvoc
     private void loadAccessRoleMap() {
         accessRoleMap = new HashMap<String, Collection<ConfigAttribute>>();
 
-        List<Access> access = accessAndRoleService.getAccessList();
+        List<Access> access = accessAndRoleService.getAllAccesses();
         for (Access a : access){
             List<String> roleNames = accessAndRoleService.getRoleNamesByAccessId(a.getAccessId());
             Collection<ConfigAttribute> value = new ArrayList<ConfigAttribute>();

@@ -1,19 +1,18 @@
 package cc.codehub.newkit.service;
 
 import cc.codehub.newkit.model.*;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by Li Di on 2017/3/9.
- */
+
 public interface AccessAndRoleService {
 
-    List<Access> getAccessList();
+    List<Access> getAllAccesses();
 
-    List<Access> getAllAccesses(Pageable pageable);
+    Page<Access> getAllAccesses(Pageable pageable);
 
     Access createAccess(Access access);
 
@@ -25,18 +24,20 @@ public interface AccessAndRoleService {
 
     boolean existsAccessUrl(String url);
 
-    Access getAccess(Integer id);
+    Access getAccessByAccessId(Integer id);
 
-    List<String> findAccessUrlByRoleId(Integer roleId);
+    List<String> getAccessUrlsByRoleId(Integer roleId);
 
 
-    Role addRole(Role role);
+    Role createRole(Role role);
 
-    void delRole(Integer id);
+    void deleteRole(Integer id);
 
     Role updateRole(Role role);
 
-    List<Role> getAllRoles(Pageable pageable);
+    List<Role> getAllRoles();
+
+    Page<Role> getAllRoles(Pageable pageable);
 
     Role getRoleByRoleId(Integer id);
 
@@ -51,19 +52,17 @@ public interface AccessAndRoleService {
 
     void deleteAccessRoleMapByRoleId(Integer roleId);
 
-    void deleteAccessRoleMapByMapId(Integer mapId);
+    void deleteAccessRoleMap(Integer mapId);
 
 
+    List<String> getRoleNamesByUser(User user);
 
-    Set<String> findRoleNamesByUser(User user);
+    List<RoleUserMap> getAllRoleUserMapsByUserId(int userId);
 
-    List<RoleUserMap> getAllUserRole(int userId);
+    RoleUserMap createRoleUserMap(RoleUserMap roleUserMap);
 
-    RoleUserMap addUserRoleMap(RoleUserMap roleUserMap);
+    void deleteRoleUserMapByUserId(int userId);
 
-    void deleteUserRoleByUserId(int userId);
+    void deleteRoleUserMapByUserIdAndRoleId(int userId, int roleId);
 
-    void deleteUserRoleByUserIdAndRoleId(int userId, int roleId);
-
-    List<String> findAllRoleNameByUsername(String account);
 }

@@ -1,11 +1,10 @@
 package cc.codehub.newkit.service;
 
 import cc.codehub.newkit.model.User;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-/**
- * Created by Li Di on 2017/3/9.
- */
+
 public interface UserService {
 
     User createUser(User user);
@@ -24,7 +23,13 @@ public interface UserService {
 
     User getUserByIdno(String idno);
 
-    Iterable<User> getAllUsers(Pageable pageable);
+    User getUserByEmail(String email);
+
+    User getUserByName(String name);
+
+    User getUserByUsernameOrMobileOrEmail(String username, String mobile, String email);
+
+    Page<User> getAllUsers(Pageable pageable);
 
     long usersCount();
 

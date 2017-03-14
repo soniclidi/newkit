@@ -1,5 +1,7 @@
 package cc.codehub.newkit.security;
 
+import cc.codehub.newkit.base.ErrorResponse;
+import cc.codehub.newkit.common.ApiError;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.access.AccessDeniedHandler;
@@ -25,10 +27,12 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
         if (isAjax) {
             response.setContentType("application/json;charset=utf-8");
+            ErrorResponse err = new ErrorResponse(ApiError.ACCESS_DENIED.getCode(), ApiError.ACCESS_DENIED.getMessage());
             PrintWriter out = response.getWriter();
-            out.print("{\"result\":\"failed\", \"code\":403, \"desc\":\"Access Denied\"}");
+            out.print(err.toJsonString());
             out.flush();
             out.close();
+
             return;
         } else if (errorPage != null) {
             request.setAttribute(WebAttributes.ACCESS_DENIED_403, accessDeniedException);

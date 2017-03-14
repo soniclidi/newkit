@@ -3,8 +3,11 @@ package cc.codehub.newkit.dao;
 import cc.codehub.newkit.model.AccessRoleMap;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-/**
- * Created by Li Di on 2017/3/9.
- */
+import java.util.List;
+
+
 public interface AccessRoleMapRepository extends JpaRepository<AccessRoleMap, Integer> {
+    List<AccessRoleMap> findByRoleId(Integer roleId);
+
+    void deleteByRoleId(Integer roleId);
 }
