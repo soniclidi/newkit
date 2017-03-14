@@ -23,7 +23,7 @@ public class SystemController {
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login() {
-        return "/mylogin.html";
+        return "login";
     }
 
     @RequestMapping("/401")
