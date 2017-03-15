@@ -8,6 +8,8 @@ public enum ApiError implements Error {
     NOT_AUTHORIZED ("401", "未授权的操作或访问"),
     ACCESS_DENIED ("403", "禁止访问"),
     SESSION_TIMEOUT ("600", "登陆超时"),
+    INVALID_PARAMETERS ("700", "无效的接口参数"),
+    DATABASE_OPERATION_FAIL ("800", "数据库操作失败"),
     ;
 
 

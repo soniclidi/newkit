@@ -1,5 +1,6 @@
 package cc.codehub.newkit.security;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;
@@ -15,9 +16,16 @@ import java.util.Iterator;
 @Component
 public class CustomAccessDecisionManager implements AccessDecisionManager {
 
+    @Value("${newkit.debug}")
+    private boolean isDebug;
+
     @Override
     public void decide(Authentication authentication, Object object, Collection<ConfigAttribute> configAttributes)
             throws AccessDeniedException, InsufficientAuthenticationException {
+
+        if (isDebug) {
+            return;
+        }
 
         if (configAttributes == null) {
             return;

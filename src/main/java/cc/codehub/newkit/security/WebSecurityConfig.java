@@ -1,6 +1,7 @@
 package cc.codehub.newkit.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,6 +14,9 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Value("${newkit.debug}")
+    private boolean isDebug;
 
     @Autowired
     private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
@@ -31,20 +35,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .addFilterBefore(customFilter, FilterSecurityInterceptor.class)
-                .authorizeRequests()
-                .anyRequest().authenticated()//所有授权
-                //.anyRequest().permitAll()//所有允许
-                .and()
-                .formLogin().loginPage("/login").permitAll()
-                .and()
-                .logout().permitAll()
-                .and()
-                .exceptionHandling().accessDeniedHandler(customAccessDeniedHandler)
-                .defaultAuthenticationEntryPointFor(customAuthenticationEntryPoint, new AjaxRequestMatcher())
-                .and()
-                .csrf().disable();
+        http.csrf().disable();
+
+        if (isDebug) {
+            http
+                    .authorizeRequests().anyRequest().permitAll();
+        } else {
+            http
+                    .addFilterBefore(customFilter, FilterSecurityInterceptor.class)
+                    .authorizeRequests()
+                    .anyRequest().authenticated()//所有授权
+                    //.anyRequest().permitAll()//所有允许
+                    .and()
+                    .formLogin().loginPage("/login").permitAll()
+                    .and()
+                    .logout().permitAll()
+                    .and()
+                    .exceptionHandling().accessDeniedHandler(customAccessDeniedHandler)
+                    .defaultAuthenticationEntryPointFor(customAuthenticationEntryPoint, new AjaxRequestMatcher());
+        }
     }
 
     @Override
